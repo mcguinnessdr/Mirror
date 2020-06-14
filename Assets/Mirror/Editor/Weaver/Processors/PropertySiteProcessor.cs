@@ -60,6 +60,12 @@ namespace Mirror.Weaver
                 md.Name.StartsWith("InvokeSyn"))
                 return;
 
+            if (md.IsAbstract)
+            {
+                Weaver.Error("Server or Client Attributes can't be added to abstract method", md);
+                return;
+            }
+
             if (md.Body != null && md.Body.Instructions != null)
             {
                 // TODO move this to NetworkBehaviourProcessor
